@@ -169,6 +169,9 @@ class _BaseObject(object):
             elif type == 'audiobook':
                 id = json['collectionId']
                 item = Audiobook(id)
+            elif type == 'ebook':
+                id = json['trackId']
+                item = Ebook(id)
             elif type == 'software':
                 id = json['trackId']
                 item = Software(id)
@@ -488,9 +491,19 @@ class Audiobook(Album):
     def __init__(self, id):
         Album.__init__(self, id)
 
+# Ebook
+class Ebook(Track):
+  """ Ebook class """
+  def __init__(self, id):
+        Track.__init__(self, id)
+  
+  def _set(self, json):
+        super(Ebook, self)._set(json)
+        self.price = json['price']
+
 # Software
 class Software(Track):
-    """ Audiobook class """
+    """ Software class """
     def __init__(self, id):
         Track.__init__(self, id)
 
@@ -596,23 +609,39 @@ def get_md5(text):
     return hash.hexdigest()
 
 #SEARCHES
-def search_track(query, limit=100, offset=0, order=None, store=COUNTRY):
+def search_track(query, offset=0, order=None, store=COUNTRY):
     return Search(query=query, media='music', entity='song',
-                  offset=offset, limit=limit, order=order, country=store).get()
+                  offset=offset, order=order, country=store).get()
 
-def search_album(query, limit=100, offset=0, order=None, store=COUNTRY):
+def search_album(query, offset=0, order=None, store=COUNTRY):
     return Search(query=query, media='music', entity='album',
-                  limit=limit, offset=offset, order=order, country=store).get()
+                  offset=offset, order=order, country=store).get()
 
-def search_artist(query, limit=100, offset=0, order=None, store=COUNTRY):
+def search_artist(query, offset=0, order=None, store=COUNTRY):
     return Search(query=query, media='music', entity='musicArtist',
-                  limit=limit, offset=offset, order=order, country=store).get()
+                  offset=offset, order=order, country=store).get()
 
-def search_app(query, limit=100, offset=0, order=None, store=COUNTRY):
+def search_book(query, offset=0, order=None, store=COUNTRY):
+    return Search(query=query, media='ebook', entity='ebook',
+                  offset=offset, order=order, country=store).get()
+
+def search_movie(query, offset=0, order=None, store=COUNTRY):
+    return Search(query=query, media='movie', entity='movie',
+                  offset=offset, order=order, country=store).get()
+
+def search_app(query, offset=0, order=None, store=COUNTRY):
     return Search(query=query, media='software', limit=limit,
                   offset=offset, order=order, country=store).get()
 
-def search(query, media='all', limit=100, offset=0, order=None, store=COUNTRY):
+def search_ios(query, offset=0, order=None, store=COUNTRY):
+    return Search(query=query, media='software', entity='software',
+                  offset=offset, order=order, country=store).get()
+
+def search_mac(query, offset=0, order=None, store=COUNTRY):
+    return Search(query=query, media='software', entity='macSoftware',
+                  offset=offset, order=order, country=store).get()
+
+def search(query, media='all', offset=0, order=None, store=COUNTRY):
     return Search(query=query, media=media, limit=limit,
                   offset=offset, order=order, country=store).get()
 
