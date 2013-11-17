@@ -609,41 +609,41 @@ def get_md5(text):
     return hash.hexdigest()
 
 #SEARCHES
-def search_track(query, offset=0, order=None, store=COUNTRY):
+def search_track(query, offset=0, order=None, store=COUNTRY, limit=50):
     return Search(query=query, media='music', entity='song',
-                  offset=offset, order=order, country=store).get()
+                  offset=offset, order=order, country=store, limit=limit).get()
 
-def search_album(query, offset=0, order=None, store=COUNTRY):
+def search_album(query, offset=0, order=None, store=COUNTRY, limit=50):
     return Search(query=query, media='music', entity='album',
-                  offset=offset, order=order, country=store).get()
+                  offset=offset, order=order, country=store, limit=limit).get()
 
-def search_artist(query, offset=0, order=None, store=COUNTRY):
+def search_artist(query, offset=0, order=None, store=COUNTRY, limit=50):
     return Search(query=query, media='music', entity='musicArtist',
-                  offset=offset, order=order, country=store).get()
+                  offset=offset, order=order, country=store, limit=limit).get()
 
-def search_book(query, offset=0, order=None, store=COUNTRY):
+def search_book(query, offset=0, order=None, store=COUNTRY, limit=50):
     return Search(query=query, media='ebook', entity='ebook',
-                  offset=offset, order=order, country=store).get()
+                  offset=offset, order=order, country=store, limit=limit).get()
 
-def search_movie(query, offset=0, order=None, store=COUNTRY):
+def search_movie(query, offset=0, order=None, store=COUNTRY, limit=50):
     return Search(query=query, media='movie', entity='movie',
-                  offset=offset, order=order, country=store).get()
+                  offset=offset, order=order, country=store, limit=limit).get()
 
-def search_app(query, offset=0, order=None, store=COUNTRY):
-    return Search(query=query, media='software', limit=limit,
-                  offset=offset, order=order, country=store).get()
+def search_app(query, offset=0, order=None, store=COUNTRY, limit=50):
+    return Search(query=query, media='software',
+                  offset=offset, order=order, country=store, limit=limit).get()
 
-def search_ios(query, offset=0, order=None, store=COUNTRY):
+def search_ios(query, offset=0, order=None, store=COUNTRY, limit=50):
     return Search(query=query, media='software', entity='software',
-                  offset=offset, order=order, country=store).get()
+                  offset=offset, order=order, country=store, limit=limit).get()
 
-def search_mac(query, offset=0, order=None, store=COUNTRY):
+def search_mac(query, offset=0, order=None, store=COUNTRY, limit=50):
     return Search(query=query, media='software', entity='macSoftware',
-                  offset=offset, order=order, country=store).get()
+                  offset=offset, order=order, country=store, limit=limit).get()
 
-def search(query, media='all', offset=0, order=None, store=COUNTRY):
-    return Search(query=query, media=media, limit=limit,
-                  offset=offset, order=order, country=store).get()
+def search(query, media='all', offset=0, order=None, store=COUNTRY, limit=50):
+    return Search(query=query, media=media,
+                  offset=offset, order=order, country=store, limit=limit).get()
 
 #LOOKUP
 def lookup(id):
