@@ -172,9 +172,6 @@ class _BaseObject(object):
             elif type == 'ebook':
                 id = json['trackId']
                 item = Ebook(id)
-            elif type == 'movie':
-                id = json['trackId']
-                item = Movie(id)
             elif type == 'software':
                 id = json['trackId']
                 item = Software(id)
@@ -460,11 +457,14 @@ class Track(Item):
             self.album = None
 
     def _set_artist(self, json):
-        self.artist = None
         if json.get('artistId'):
             id = json['artistId']
             self.artist = Artist(id)
             self.artist._set(json)
+        elif json.get('artistName'):
+            self.artist = json['artistName']
+        else:
+            self.artist = None
 
     def _set_album(self, json):
         if json.has_key('collectionId'):
@@ -503,16 +503,6 @@ class Ebook(Track):
   def _set(self, json):
         super(Ebook, self)._set(json)
         self.price = json['price']
-
-# Movie
-class Movie(Track):
-  """ Movie class """
-  def __init__(self, id):
-        Track.__init__(self, id)
-  
-  def _set(self, json):
-        super(Movie, self)._set(json)
-        self.artist = json['artistName']
 
 # Software
 class Software(Track):
