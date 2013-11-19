@@ -502,7 +502,10 @@ class Ebook(Track):
   
   def _set(self, json):
         super(Ebook, self)._set(json)
-        self.price = json['price']
+        try:
+            self.price = json['price']
+        except KeyError:
+            self.price = None
 
 # Software
 class Software(Track):
